@@ -30,6 +30,7 @@
       margin: 0;
       font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
       color: var(--ink);
+      overflow-x: hidden;
       background:
         radial-gradient(circle at 12% 18%, rgba(240, 75, 123, .10), transparent 32%),
         radial-gradient(circle at 88% 14%, rgba(255, 138, 61, .10), transparent 28%),
@@ -266,34 +267,142 @@
       box-shadow: 0 12px 24px rgba(32, 23, 27, .16);
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1100px) {
       .topbar-inner,
       .hero {
         width: min(100% - 32px, 1180px);
       }
 
-      h1 {
-        font-size: 40px;
+      .hero {
+        min-height: 0;
+        padding: 40px 0 34px;
+        gap: 30px;
+      }
+
+      .headline h1 {
+        font-size: 44px;
+      }
+
+      .report-menu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
       }
 
       .menu-button {
-        min-height: 300px;
+        min-height: 280px;
+        padding: 34px;
       }
 
-      .headline {
-        display: block;
-      }
-
-      .headline p {
-        max-width: none;
-        margin-top: 8px;
-        text-align: center;
+      .menu-button h2 {
+        font-size: 32px;
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 720px) {
+      .topbar {
+        height: auto;
+      }
+
+      .topbar-inner {
+        width: calc(100% - 24px);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px 0;
+      }
+
+      .brand {
+        gap: 10px;
+      }
+
+      .brand-mark {
+        min-width: 50px;
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .brand-text strong {
+        font-size: 14px;
+      }
+
+      .updated {
+        font-size: 12px;
+        line-height: 1.35;
+        white-space: normal;
+      }
+
+      .hero {
+        width: calc(100% - 24px);
+        padding: 28px 0 22px;
+        gap: 22px;
+        align-items: start;
+      }
+
+      .headline h1 {
+        display: block;
+        padding: 0 6px 18px;
+        font-size: 31px;
+        line-height: 1.18;
+        word-break: keep-all;
+      }
+
+      .headline h1::before {
+        margin-bottom: 11px;
+        padding: 6px 10px;
+        font-size: 10px;
+      }
+
+      .headline h1::after {
+        width: 90%;
+        height: 4px;
+      }
+
       .report-menu {
         grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .menu-button {
+        min-height: 190px;
+        padding: 24px;
+      }
+
+      .button-label {
+        min-height: 24px;
+        margin-bottom: 10px;
+        font-size: 11px;
+      }
+
+      .menu-button h2 {
+        margin-bottom: 10px;
+        font-size: 28px;
+        line-height: 1.12;
+      }
+
+      .menu-button p {
+        min-height: 0;
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.55;
+      }
+
+      .open-button {
+        width: 100%;
+        min-height: 42px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .headline h1 {
+        font-size: 28px;
+      }
+
+      .menu-button {
+        padding: 20px;
+      }
+
+      .menu-button h2 {
+        font-size: 26px;
       }
     }
   </style>
