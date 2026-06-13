@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LG 모델 스펙 검색</title>
+  <style>
+    :root {
+      --accent: #a50034;
+      --accent-dark: #710024;
+      --ink: #151515;
+      --muted: #666;
+      --line: #dedede;
+      --soft: #f6f7f9;
+      --paper: #eef0f3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      background: var(--paper);
+      letter-spacing: 0;
+    }
+    a { color: inherit; text-decoration: none; }
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: 18px;
+      padding: 22px;
+    }
+    .stage {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      padding: 18px 20px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+    h1 {
+      margin: 0 0 6px;
+      font-size: 26px;
+      line-height: 1.18;
+      font-weight: 900;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .home-link {
+      min-height: 38px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 13px;
+      border-radius: 7px;
+      background: #252025;
+      color: #fff;
+      font-weight: 900;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .card {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(300px, 38%) minmax(0, 1fr);
+      gap: 18px;
+      min-height: calc(100vh - 154px);
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .visual {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 20px;
+      border-radius: 8px;
+      background: var(--soft);
+      border: 1px solid #e7e7e7;
+    }
+    .model-image-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 430px;
+      background: #fff;
+      border: 1px solid #ececec;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .model-image {
+      width: 94%;
+      max-width: 520px;
+      max-height: 560px;
+      object-fit: contain;
+      display: block;
+    }
+    .no-image {
+      color: var(--accent);
+      font-size: 26px;
+      font-weight: 900;
+    }
+    .detail {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .eyebrow {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef5f8;
+      color: #175d72;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .product-title {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.16;
+      font-weight: 900;
+      word-break: keep-all;
+    }
+    .model-code {
+      margin: 0;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 900;
+      font-family: "Cascadia Mono", Consolas, monospace;
+      word-break: break-all;
+    }
+    .summary {
+      margin: 0;
+      color: #333;
+      font-size: 15px;
+      line-height: 1.55;
+      word-break: keep-all;
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      font-size: 14px;
+      line-height: 1.45;
+      word-break: keep-all;
+    }
+    .spec-table th {
+      width: 168px;
+      color: #fff;
+      background: #2c2c2c;
+      text-align: left;
+      font-weight: 900;
+    }
+    .spec-table tr:last-child th,
+    .spec-table tr:last-child td { border-bottom: 0; }
+    .source-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin-top: auto;
+    }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 13px;
+      border-radius: 7px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .sidebar {
+      position: sticky;
+      top: 22px;
+      height: calc(100vh - 44px);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .sidebar h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .sidebar-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    input, select {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      padding: 0 12px;
+    }
+    .model-list {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding-right: 3px;
+    }
+    .model-button {
+      width: 100%;
+      height: auto;
+      min-height: 70px;
+      padding: 10px;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: background-color .14s ease, border-color .14s ease, box-shadow .14s ease;
+    }
+    .model-button:hover {
+      border-color: rgba(165, 0, 52, .42);
+      background: #fff4f7;
+      box-shadow: inset 4px 0 0 rgba(165, 0, 52, .45);
+    }
+    .model-button.active {
+      border-color: var(--accent);
+      background: #ffeaf1;
+      box-shadow: inset 4px 0 0 var(--accent), 0 0 0 3px rgba(165, 0, 52, .08);
+    }
+    .model-button strong {
+      display: block;
+      color: var(--accent-dark);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.25;
+      word-break: break-all;
+    }
+    .model-button span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .counter {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; padding: 14px; }
+      .sidebar { order: -1; position: static; height: auto; }
+      .model-list { flex-direction: row; overflow-x: auto; }
+      .model-button { min-width: 220px; }
+      .card { grid-template-columns: 1fr; min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+<main class="app">
+  <section class="stage">
+    <header class="topbar">
+      <div>
+        <h1>LG 모델 스펙 검색</h1>
+        <p class="sub" id="dataInfo">LG전자 홈페이지를 참고 하였으며 상세 정보에 오류가 있을 수 있습니다</p>
+      </div>
+      <a class="home-link" href="index.html">메인으로</a>
+    </header>
+
+    <article id="detailCard" class="card" hidden>
+      <section class="visual">
+        <div class="model-image-wrap" id="imageWrap"></div>
+      </section>
+      <section class="detail">
+        <div class="eyebrow" id="badges"></div>
+        <h2 class="product-title" id="productTitle"></h2>
+        <p class="model-code" id="modelCode"></p>
+        <p class="summary" id="summary"></p>
+        <table class="spec-table"><tbody id="specBody"></tbody></table>
+        <div class="source-row">
+          <span>이미지와 제품 정보는 LG전자 공식 제품 페이지 기준입니다.</span>
+          <a class="source-link" id="sourceLink" href="#" target="_blank" rel="noopener">공식 페이지</a>
+        </div>
+      </section>
+    </article>
+  </section>
+
+  <aside class="sidebar">
+    <div>
+      <h2>모델 검색</h2>
+      <p class="sidebar-note">모델명 일부를 입력한 뒤 결과를 선택하세요.</p>
+    </div>
+    <input id="search" type="search" placeholder="예: FQ18, OLED, WD520">
+    <select id="category"><option value="">전체 카테고리</option></select>
+    <div class="counter" id="counter">검색어를 입력해 주세요.</div>
+    <div class="model-list" id="modelList"></div>
+  </aside>
+</main>
+
+<script src="data/lg_catalog.js"></script>
+<script>
+const state = { products: [], selectedModel: "" };
+const search = document.querySelector("#search");
+const category = document.querySelector("#category");
+const modelList = document.querySelector("#modelList");
+const counter = document.querySelector("#counter");
+const dataInfo = document.querySelector("#dataInfo");
+const detailCard = document.querySelector("#detailCard");
+
+init();
+
+async function init() {
+  try {
+    const data = window.LG_CATALOG || await fetchCatalogJson();
+    state.products = (Array.isArray(data.products) ? data.products : [])
+      .filter(item => item.model && !/^CT\d+$/i.test(item.model));
+    dataInfo.textContent = "LG전자 홈페이지를 참고 하였으며 상세 정보에 오류가 있을 수 있습니다";
+    fillCategories();
+    if (state.products.length) selectProduct(state.products[0].model, false);
+    renderList();
+  } catch (error) {
+    dataInfo.textContent = "제품 검색 DB를 불러오지 못했습니다. RUN_BUILD_FULL.cmd를 실행해 주세요.";
+  }
+}
+
+async function fetchCatalogJson() {
+  const response = await fetch("data/lg_catalog.json", { cache: "no-store" });
+  return await response.json();
+}
+
+search.addEventListener("input", renderList);
+category.addEventListener("change", renderList);
+
+function fillCategories() {
+  const categories = [...new Set(state.products.map(item => mainCategory(item.category)).filter(Boolean))].sort();
+  for (const name of categories) {
+    const option = document.createElement("option");
+    option.value = name;
+    option.textContent = name;
+    category.appendChild(option);
+  }
+}
+
+function renderList() {
+  const term = normalize(search.value);
+  const selectedCategory = category.value;
+  let items = state.products;
+  if (selectedCategory) items = items.filter(item => mainCategory(item.category) === selectedCategory);
+  if (term) {
+    items = items.filter(item => normalize(`${item.model} ${item.name} ${item.category}`).includes(term));
+  }
+  items = items.slice(0, 80);
+  counter.textContent = term ? `${items.length.toLocaleString()}개 결과` : `최근 색인 ${items.length.toLocaleString()}개 표시`;
+  if (items.length && !items.some(item => item.model === state.selectedModel)) {
+    selectProduct(items[0].model, false);
+  }
+  modelList.innerHTML = items.map(item => `
+    <button class="model-button ${item.model === state.selectedModel ? "active" : ""}" type="button" data-model="${escapeHtml(item.model)}">
+      <strong>${escapeHtml(item.model)}</strong>
+      <span>${escapeHtml(item.name || item.category || "")}</span>
+    </button>
+  `).join("");
+  modelList.querySelectorAll("button").forEach(button => {
+    button.addEventListener("click", () => selectProduct(button.dataset.model));
+  });
+}
+
+function selectProduct(model, rerender = true) {
+  const item = state.products.find(product => product.model === model);
+  if (!item) return;
+  state.selectedModel = item.model;
+  detailCard.hidden = false;
+
+  imageWrap.innerHTML = item.image
+    ? `<img class="model-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.model)} 제품 이미지">`
+    : `<span class="no-image">${escapeHtml(item.model)}</span>`;
+  const categoryName = mainCategory(item.category);
+  badges.innerHTML = `<span class="tag">${escapeHtml(categoryName || "LG전자 제품")}</span><span class="tag">LG전자 공식</span>`;
+  productTitle.textContent = item.name || item.model;
+  modelCode.textContent = item.model;
+  summary.textContent = cleanSummary(item.summary) || "제품 상세 스펙은 공식 페이지 기준으로 확인해 주세요.";
+  sourceLink.href = item.url || "#";
+
+  const specs = Object.entries(item.specs || {}).filter(([key, value]) => isUsefulSpec(key, value)).slice(0, 24);
+  specBody.innerHTML = [
+    ["모델명", `<span class="mono">${escapeHtml(item.model)}</span>`],
+    ["제품명", escapeHtml(item.name || "-")],
+    ["카테고리", escapeHtml(categoryName || "LG전자 제품")],
+    ...specs.map(([key, value]) => [escapeHtml(key), escapeHtml(value)])
+  ].map(([key, value]) => `<tr><th>${key}</th><td>${value}</td></tr>`).join("");
+
+  if (rerender) renderList();
+}
+
+function cleanSummary(value) {
+  return String(value || "")
+    .replace(/제품 공유하기[\s\S]*$/i, "")
+    .replace(/현재 별점[\s\S]*$/i, "")
+    .replace(/리뷰 개수[\s\S]*$/i, "")
+    .replace(/정상가[\s\S]*$/i, "")
+    .replace(/판매가[\s\S]*$/i, "")
+    .replace(/회원할인가[\s\S]*$/i, "")
+    .trim()
+    .slice(0, 180);
+}
+
+function normalize(value) {
+  return String(value || "").toUpperCase().replace(/[^A-Z0-9가-힣]/g, "");
+}
+
+function mainCategory(value) {
+  const parts = String(value || "").split("/").map(part => part.trim()).filter(Boolean);
+  return parts.length >= 2 ? parts[1] : (parts[0] || "LG전자 제품");
+}
+
+function isUsefulSpec(key, value) {
+  const name = String(key || "").trim();
+  const text = String(value || "").trim();
+  if (!name || !text) return false;
+  if (name.includes("판매가") || name.includes("가격")) return false;
+  if (name === "리뷰" || name === "배송/설치") return false;
+  if (["크기", "무게", "패널", "디스플레이", "색상"].includes(name) && !hasMeasurableValue(text)) return false;
+  if (/[,.]$/.test(text)) return false;
+  if (/스탠드 제외|설치되어 있으며|은 모니터|눈부심 없는|인증 내용|기준 ④/.test(text)) return false;
+  return true;
+}
+
+function hasMeasurableValue(value) {
+  return /\d/.test(value) && /(cm|mm|kg|g|인치|inch|OLED|QNED|LCD|LED|IPS|VA|나노셀|올레드)/i.test(value);
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+</script>
+</body>
+</html>

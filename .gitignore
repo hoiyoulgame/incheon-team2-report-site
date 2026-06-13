@@ -1,0 +1,6 @@
+raw/**/*.xls
+raw/**/*.xlsx
+raw/**/*.xlsm
+!raw/**/README.txt
+*.log
+build-log.txt

@@ -1,0 +1,21 @@
+# LG전자 모델 검색 DB 수집 시작 페이지
+# #으로 시작하는 줄은 무시됩니다.
+#
+# 처음에는 공식 홈과 주요 제품군 중심으로 수집합니다.
+# 필요하면 카테고리 URL을 한 줄씩 추가하세요.
+
+https://www.lge.co.kr/home
+https://www.lge.co.kr/air-conditioners
+https://www.lge.co.kr/tvs
+https://www.lge.co.kr/refrigerators
+https://www.lge.co.kr/washing-machines
+https://www.lge.co.kr/dryers
+https://www.lge.co.kr/dishwashers
+https://www.lge.co.kr/vacuum-cleaners
+https://www.lge.co.kr/water-purifiers
+https://www.lge.co.kr/notebook
+https://www.lge.co.kr/monitors
+https://www.lge.co.kr/dehumidifiers
+https://www.lge.co.kr/kimchi-refrigerators
+https://www.lge.co.kr/projectors
+https://www.lge.co.kr/home-iot-product

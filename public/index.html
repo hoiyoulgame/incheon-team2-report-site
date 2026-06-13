@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LG 매니저 리포트 센터</title>
+  <style>
+    :root {
+      --lg-red: #a50034;
+      --lg-red-dark: #710024;
+      --lg-red-soft: #f8e8ee;
+      --pink: #f04b7b;
+      --violet: #6f3bb8;
+      --orange: #ff8a3d;
+      --cream: #fff3e8;
+      --ink: #20171b;
+      --muted: #70666a;
+      --line: #ead8df;
+      --paper: #fff8fa;
+      --panel: #ffffff;
+      --shadow: 0 22px 60px rgba(92, 0, 31, .14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: "Segoe UI", "Malgun Gothic", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(240, 75, 123, .10), transparent 32%),
+        radial-gradient(circle at 88% 14%, rgba(255, 138, 61, .10), transparent 28%),
+        linear-gradient(180deg, rgba(165, 0, 52, .055), rgba(255, 248, 250, 0) 360px),
+        var(--paper);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid rgba(165, 0, 52, .14);
+      background: rgba(255, 255, 255, .78);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      width: min(1180px, calc(100% - 48px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      min-width: 58px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      background: #252025;
+      color: #fff;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      align-items: center;
+      min-height: 34px;
+    }
+
+    .brand-text strong {
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .updated {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .hero {
+      width: min(1240px, calc(100% - 48px));
+      min-height: calc(100vh - 60px);
+      margin: 0 auto;
+      padding: 54px 0 46px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .headline {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 4px;
+      text-align: center;
+    }
+
+    .headline h1 {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      padding: 0 28px 26px;
+      color: var(--lg-red-dark);
+      font-size: 58px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .headline h1::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: min(560px, 86%);
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, transparent, var(--lg-red), var(--pink), var(--lg-red), transparent);
+      transform: translateX(-50%);
+    }
+
+    .headline h1::before {
+      content: "TEAM SLOGAN";
+      display: block;
+      width: max-content;
+      margin: 0 auto 16px;
+      padding: 7px 12px;
+      border: 1px solid rgba(165, 0, 52, .18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .78);
+      color: var(--lg-red);
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .report-menu {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .menu-button {
+      position: relative;
+      min-height: 340px;
+      overflow: hidden;
+      display: grid;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid rgba(165, 0, 52, .13);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .92);
+      box-shadow: 0 16px 42px rgba(92, 0, 31, .10);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      isolation: isolate;
+    }
+
+    .menu-button:hover {
+      transform: translateY(-4px);
+      border-color: rgba(165, 0, 52, .28);
+      box-shadow: 0 24px 58px rgba(92, 0, 31, .14);
+    }
+
+    .menu-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .92), rgba(255, 246, 249, .82)),
+        linear-gradient(90deg, rgba(165, 0, 52, .10), transparent 48%);
+      opacity: 1;
+      z-index: -2;
+    }
+
+    .menu-button::after {
+      content: "";
+      position: absolute;
+      inset: auto -80px -120px auto;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      background: rgba(165, 0, 52, .08);
+      z-index: -1;
+    }
+
+    .menu-button.sales::before {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .92), rgba(250, 244, 255, .84)),
+        linear-gradient(90deg, rgba(111, 59, 184, .13), transparent 50%);
+    }
+
+    .menu-button.search::before {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .94), rgba(255, 245, 236, .86)),
+        linear-gradient(90deg, rgba(255, 138, 61, .15), transparent 50%);
+    }
+
+    .button-content {
+      position: relative;
+      z-index: 1;
+      color: var(--ink);
+      max-width: 520px;
+      min-width: 0;
+      align-self: center;
+    }
+
+    .button-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      margin-bottom: 14px;
+      padding: 0 10px;
+      border: 1px solid rgba(165, 0, 52, .18);
+      border-radius: 7px;
+      color: var(--lg-red);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .menu-button h2 {
+      margin: 0 0 14px;
+      font-size: 38px;
+      line-height: 1.16;
+      letter-spacing: 0;
+    }
+
+    .menu-button p {
+      max-width: 500px;
+      min-height: 58px;
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      word-break: keep-all;
+    }
+
+    .open-button {
+      min-height: 46px;
+      display: inline-grid;
+      place-items: center;
+      padding: 0 18px;
+      border-radius: 8px;
+      color: #fff;
+      background: #252025;
+      font-weight: 900;
+      box-shadow: 0 12px 24px rgba(32, 23, 27, .16);
+    }
+
+    @media (max-width: 980px) {
+      .topbar-inner,
+      .hero {
+        width: min(100% - 32px, 1180px);
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      .menu-button {
+        min-height: 300px;
+      }
+
+      .headline {
+        display: block;
+      }
+
+      .headline p {
+        max-width: none;
+        margin-top: 8px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .report-menu {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-mark">kt cs</div>
+        <div class="brand-text">
+          <strong>LG전자 매니저 운영센터 인천2팀</strong>
+        </div>
+      </div>
+      <div class="updated">문의사항 : 인천2팀 김회열 파트장</div>
+    </div>
+  </header>
+
+  <main class="hero">
+    <section class="headline" aria-label="페이지 안내">
+      <div>
+        <h1>함께 꾸는 꿈은 반드시 현실이 된다</h1>
+      </div>
+    </section>
+
+    <section class="report-menu" aria-label="리포트 메뉴">
+      <a class="menu-button sales" href="reports/lg_sales_competition_subscription_report.html">
+        <div class="button-content">
+          <div class="button-label">MSIS SALES</div>
+          <h2>실적 Review</h2>
+          <p>MSIS 실판매 기준 경쟁 현황을 PC 전체 화면에서 확인합니다.</p>
+          <span class="open-button">리포트 열기</span>
+        </div>
+      </a>
+
+      <a class="menu-button" href="reports/aircon_unified_report.html">
+        <div class="button-content">
+          <div class="button-label">AIRCON</div>
+          <h2>에어컨 Report</h2>
+          <p>재고 지도, 팀별 현황, 행사 모델 자료를 한 화면에서 확인합니다.</p>
+          <span class="open-button">리포트 열기</span>
+        </div>
+      </a>
+
+      <a class="menu-button search" href="model-search.html">
+        <div class="button-content">
+          <div class="button-label">LG CATALOG</div>
+          <h2>모델 검색</h2>
+          <p>LG전자 제품 모델명으로 이미지와 주요 스펙을 빠르게 확인합니다.</p>
+          <span class="open-button">검색 열기</span>
+        </div>
+      </a>
+
+    </section>
+  </main>
+</body>
+</html>
+
+
+
+
