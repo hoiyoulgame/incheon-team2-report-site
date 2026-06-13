@@ -24,12 +24,15 @@ git add .github .gitignore README_사용방법.txt RUN_BUILD.cmd RUN_BUILD_FULL.
 for /f "tokens=1-4 delims=/-. " %%a in ("%date%") do set TODAY=%%a-%%b-%%c
 for /f "tokens=1-2 delims=:." %%a in ("%time%") do set NOW=%%a%%b
 
-git commit -m "Update report site %TODAY% %NOW%"
+git diff --cached --quiet
 if errorlevel 1 (
-  echo No changes to publish.
+  git commit -m "Update report site %TODAY% %NOW%"
 ) else (
-  git push origin main
+  echo No file changes to commit.
 )
+
+git status -sb
+git push origin main
 
 echo.
 pause
