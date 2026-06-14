@@ -134,6 +134,17 @@ function Update-PortalTimestamp {
   Set-Content -LiteralPath $index -Value $content -Encoding UTF8
 }
 
+function Ensure-PinGate([string]$htmlPath, [string]$scriptPath) {
+  if (-not (Test-Path -LiteralPath $htmlPath)) { return }
+
+  $content = Get-Content -LiteralPath $htmlPath -Raw
+  if ($content -match [regex]::Escape($scriptPath)) { return }
+
+  $tag = "<script src=`"$scriptPath`"></script>"
+  $content = $content -replace '(?i)</head>', "$tag`r`n</head>"
+  Set-Content -LiteralPath $htmlPath -Value $content -Encoding UTF8
+}
+
 Write-Section "Incheon Team 2 Report Site Build"
 
 if (-not (Test-Path -LiteralPath $airconRoot)) { throw "Missing aircon generator folder: $airconRoot" }
@@ -228,6 +239,10 @@ Invoke-Checked "Publish generated reports" {
   Copy-Item -LiteralPath (Join-Path $airconRoot "output\aircon_unified_report.html") -Destination (Join-Path $reportsDir "aircon_unified_report.html") -Force
   Copy-Item -LiteralPath (Join-Path $msisRoot "output\lg_sales_competition_subscription_report.html") -Destination (Join-Path $reportsDir "lg_sales_competition_subscription_report.html") -Force
   Update-PortalTimestamp
+  Ensure-PinGate (Join-Path $publicDir "index.html") "auth.js"
+  Ensure-PinGate (Join-Path $publicDir "model-search.html") "auth.js"
+  Ensure-PinGate (Join-Path $reportsDir "aircon_unified_report.html") "../auth.js"
+  Ensure-PinGate (Join-Path $reportsDir "lg_sales_competition_subscription_report.html") "../auth.js"
 }
 
 if ($RefreshCatalog) {
