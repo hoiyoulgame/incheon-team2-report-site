@@ -245,13 +245,15 @@
       letter-spacing: 0;
     }
 
-    .menu-button p {
+    .raw-date {
+      display: block;
       max-width: 500px;
-      min-height: 58px;
+      min-height: 28px;
       margin: 0 0 28px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
+      color: var(--lg-red);
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 900;
       word-break: keep-all;
     }
 
@@ -379,11 +381,11 @@
         line-height: 1.12;
       }
 
-      .menu-button p {
+      .raw-date {
         min-height: 0;
         margin-bottom: 20px;
         font-size: 14px;
-        line-height: 1.55;
+        line-height: 1.45;
       }
 
       .open-button {
@@ -432,7 +434,7 @@
         <div class="button-content">
           <div class="button-label">MSIS SALES</div>
           <h2>실적 Review</h2>
-          <p>MSIS 실판매 기준 경쟁 현황을 PC 전체 화면에서 확인합니다.</p>
+          <span class="raw-date" data-raw-date="msis">raw 기준일 : 2026-06-13</span>
           <span class="open-button">리포트 열기</span>
         </div>
       </a>
@@ -441,7 +443,7 @@
         <div class="button-content">
           <div class="button-label">AIRCON</div>
           <h2>에어컨 Report</h2>
-          <p>재고 지도, 팀별 현황, 행사 모델 자료를 한 화면에서 확인합니다.</p>
+          <span class="raw-date" data-raw-date="aircon">raw 기준일 : 2026-06-10</span>
           <span class="open-button">리포트 열기</span>
         </div>
       </a>
@@ -450,7 +452,7 @@
         <div class="button-content">
           <div class="button-label">LG CATALOG</div>
           <h2>모델 검색</h2>
-          <p>LG전자 제품 모델명으로 이미지와 주요 스펙을 빠르게 확인합니다.</p>
+          <span class="raw-date" data-raw-date="catalog">raw 기준일 : LG전자 홈페이지 색인</span>
           <span class="open-button">검색 열기</span>
         </div>
       </a>

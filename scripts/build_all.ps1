@@ -98,13 +98,39 @@ function Get-TvReferenceFile {
   return Get-LatestFile $rawReference @(".xlsx", ".xls")
 }
 
+function Get-AirconRawDateText {
+  if (-not $airconSource) { return "raw 기준일 : 확인 필요" }
+  $name = $airconSource.Name
+  $match = [regex]::Match($name, '\((\d{6})\)')
+  if ($match.Success) {
+    $value = $match.Groups[1].Value
+    return "raw 기준일 : 20$($value.Substring(0,2))-$($value.Substring(2,2))-$($value.Substring(4,2))"
+  }
+  return "raw 기준일 : $($airconSource.LastWriteTime.ToString('yyyy-MM-dd'))"
+}
+
+function Get-MsisRawDateText {
+  $latest = Get-ChildItem -LiteralPath $rawMsis -File -ErrorAction SilentlyContinue |
+    Where-Object { $_.Extension.ToLowerInvariant() -in @(".xls", ".xlsx") -and $_.Name -like "msis_실판매_*" } |
+    Sort-Object LastWriteTime -Descending |
+    Select-Object -First 1
+
+  if (-not $latest) { return "raw 기준일 : 확인 필요" }
+  $match = [regex]::Match($latest.Name, '(\d{4}-\d{2}-\d{2})(?=\.[^.]+$)')
+  if ($match.Success) {
+    return "raw 기준일 : $($match.Groups[1].Value)"
+  }
+  return "raw 기준일 : $($latest.LastWriteTime.ToString('yyyy-MM-dd'))"
+}
+
 function Update-PortalTimestamp {
   $index = Join-Path $publicDir "index.html"
   if (-not (Test-Path -LiteralPath $index)) { return }
 
-  $now = Get-Date -Format "yyyy-MM-dd HH:mm"
   $content = Get-Content -LiteralPath $index -Raw
-  $content = [regex]::Replace($content, 'PC 배포용 · [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2} 기준', "PC 배포용 · $now 기준")
+  $content = [regex]::Replace($content, '(<span class="raw-date" data-raw-date="msis">)[^<]*(</span>)', "`$1$(Get-MsisRawDateText)`$2")
+  $content = [regex]::Replace($content, '(<span class="raw-date" data-raw-date="aircon">)[^<]*(</span>)', "`$1$(Get-AirconRawDateText)`$2")
+  $content = [regex]::Replace($content, '(<span class="raw-date" data-raw-date="catalog">)[^<]*(</span>)', "`$1raw 기준일 : LG전자 홈페이지 색인`$2")
   Set-Content -LiteralPath $index -Value $content -Encoding UTF8
 }
 
