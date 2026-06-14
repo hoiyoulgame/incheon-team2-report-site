@@ -2,6 +2,8 @@
 setlocal
 cd /d "%~dp0"
 
+if exist "%~dp0publish.log" del /q "%~dp0publish.log" >nul 2>&1
+
 echo.
 echo ============================================================
 echo  Publish Incheon Team 2 Report Site
