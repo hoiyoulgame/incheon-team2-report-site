@@ -21,6 +21,7 @@ h1{margin:0;font-size:19px;line-height:1.2}
 .weather-chip{display:inline-grid;grid-template-columns:auto auto;align-items:center;gap:4px;min-width:max-content;padding:4px 7px;border:1px solid #ead7dd;border-radius:7px;background:#fff8fa;font-size:11px;line-height:1}
 .weather-chip b{color:#222}
 .weather-chip em{font-style:normal;color:var(--accent);font-weight:900}
+.home-button{min-height:38px;display:inline-grid;place-items:center;padding:0 13px;border-radius:7px;background:#252025;color:#fff;font-size:13px;font-weight:900;text-decoration:none;white-space:nowrap}
 .tabs{display:flex;gap:4px;align-self:end;flex:0 0 auto;margin-bottom:2px;padding:4px;border:1px solid var(--line);border-radius:8px;background:#f8fafb}
 .tab{min-width:116px;min-height:38px;padding:0 16px;border:0;border-radius:6px;background:transparent;color:#333;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap}
 .tab.active{background:var(--accent);color:#fff;box-shadow:0 6px 14px rgba(165,0,52,.18)}
@@ -29,7 +30,7 @@ h1{margin:0;font-size:19px;line-height:1.2}
 iframe{display:none;width:100%;height:100%;border:0;background:#fff}
 iframe.active{display:block}
 @media(max-width:1200px){.topbar{grid-template-columns:minmax(260px,1fr) auto}.title-row{align-items:flex-start;flex-direction:column;gap:6px}.weather{max-width:100%;overflow:auto;padding-bottom:2px}}
-@media(max-width:720px){.topbar{grid-template-columns:1fr;padding:12px}.brandmark{min-width:48px;height:28px;font-size:11px}h1{font-size:17px}.meta{font-size:11.5px}.tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:0}.tab{width:100%;min-width:0;min-height:40px;padding:0 8px;font-size:13px}.weather{max-width:100%;overflow:auto;padding-bottom:2px}.frame-wrap{min-height:calc(100vh - 146px)}}
+@media(max-width:720px){.topbar{grid-template-columns:1fr;padding:12px}.brandmark{min-width:48px;height:28px;font-size:11px}h1{font-size:17px}.meta{font-size:11.5px}.tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;margin:0}.home-button{width:100%;grid-column:1/-1;min-height:40px}.tab{width:100%;min-width:0;min-height:40px;padding:0 8px;font-size:13px}.weather{max-width:100%;overflow:auto;padding-bottom:2px}.frame-wrap{min-height:calc(100vh - 190px)}}
 </style>
 </head>
 <body>
@@ -44,6 +45,7 @@ iframe.active{display:block}
       <div class="meta"><strong>최종 생성</strong> 2026. 6. 14. 22시 34분 46초 · 문의 : 인천2팀 김회열 파트장</div>
     </div>
     <nav class="tabs" aria-label="자료 선택">
+      <a class="home-button" href="../index.html">메인으로</a>
       <button class="tab active" type="button" data-target="mapFrame" aria-selected="true">재고 지도</button>
       <button class="tab" type="button" data-target="trainingFrame" aria-selected="false">주력 모델</button>
     </nav>
