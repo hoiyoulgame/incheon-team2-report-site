@@ -141,7 +141,9 @@ function Ensure-PinGate([string]$htmlPath, [string]$scriptPath) {
   if ($content -match [regex]::Escape($scriptPath)) { return }
 
   $tag = "<script src=`"$scriptPath`"></script>"
-  $content = $content -replace '(?i)</head>', "$tag`r`n</head>"
+  $headClose = $content.IndexOf("</head>", [System.StringComparison]::OrdinalIgnoreCase)
+  if ($headClose -lt 0) { return }
+  $content = $content.Insert($headClose, "$tag`r`n")
   Set-Content -LiteralPath $htmlPath -Value $content -Encoding UTF8
 }
 
